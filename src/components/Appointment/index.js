@@ -1,5 +1,6 @@
 import React from "react";
 import "components/Appointment/styles.scss"
+import Header from "components/Appointment/header";
 export default function Appointment(props) {
   const appointments = () => {
     if (props.time) {
@@ -7,6 +8,6 @@ export default function Appointment(props) {
     } else { return(<>No Appointments</>);}
   };
   return (
-    <article className="appointment">{appointments()}</article>
+    <article className="appointment"> <Header time={appointments()}></Header></article>
   );
 }
