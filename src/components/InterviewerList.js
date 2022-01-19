@@ -3,9 +3,9 @@ import "components/InterviewerList.scss"
 import InterviewerListItem from "./InterviewerListItem";
 
 export default function InterviewerList(props) { 
-  
+ 
   const {interviewers, interviewer, setInterviewer} = props;
-  console.log(props.interviewers);
+  // console.log(props.interviewers);
   
 
   return(
@@ -17,7 +17,7 @@ export default function InterviewerList(props) {
             name = {iv.name}
             avatar = {iv.avatar}
             selected = {iv.id === interviewer}
-            setInterviewer = {iv.setInterviewer} {...iv}
+            setInterviewer = {event => {setInterviewer(iv)}}
           />)}
           </ul>
     </section>
