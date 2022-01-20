@@ -12,7 +12,7 @@ export default function DayList({days, propDay, setDay} = this.props){
      key={day.id}
     name={day.name}
     spots={day.spots}
-    selected={day.name == propDay} 
+    selected={day.name === propDay} 
     setDay={setDay} />);
 
   return(

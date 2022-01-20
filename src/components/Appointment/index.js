@@ -1,15 +1,15 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "components/Appointment/styles.scss"
 import Header from "components/Appointment/header";
 import Show from "./Show";
 import Empty from "./Empty";
 
 export default function Appointment(props) {
-  const appointments = () => {
-    if (props.time) {
-      return (<>Appointment at {props.time}</>);
-    } else { return(<>No Appointments</>);}
-  };
+  // const appointments = () => {
+  //   if (props.time) {
+  //     return (<>Appointment at {props.time}</>);
+  //   } else { return(<>No Appointments</>);}
+  // };
   
   return (
     <article className="appointment"> 
