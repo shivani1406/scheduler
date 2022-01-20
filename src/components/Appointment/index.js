@@ -1,7 +1,7 @@
 import React from "react";
 import "components/Appointment/styles.scss"
 import Header from "components/Appointment/header";
-import Empty from "components/Appointment/Empty";
+
 export default function Appointment(props) {
   const appointments = () => {
     if (props.time) {
