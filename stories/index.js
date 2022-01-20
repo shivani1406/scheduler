@@ -173,6 +173,7 @@ storiesOf("Button", module)
     <Fragment>
       <Appointment id={1} time="4pm" />
       <Appointment time="5pm" />
+      <Appointment key="last" time="5pm" />
     </Fragment>
   ))
   .add("Appointment Booked", () => (
@@ -185,6 +186,7 @@ storiesOf("Button", module)
         // onDelete={action("onDelete")}
       />
       <Appointment time="5pm" />
+      <Appointment key="last" time="5pm" />
     </Fragment>
   ))
   ;

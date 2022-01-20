@@ -13,11 +13,12 @@ export default function Appointment(props) {
   
   return (
     <article className="appointment"> 
-    <Header time={appointments()}>
+    <Header time={props.time}>
       </Header>
-      {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} 
+      {props.interview && <Show student={props.interview.student} interviewer={props.interview.interviewer} 
       // onEdit={props.onEdit} onDelete={props.onDelete}
-      /> : <Empty />}
+      /> }
+      {!props.interview && <Empty />}
       </article>
   );
 }
