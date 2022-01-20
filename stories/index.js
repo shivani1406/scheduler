@@ -107,9 +107,10 @@ storiesOf("Button", module)
       ))
       .add("Clickable", () => (
         <InterviewerListItem
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-          setInterviewer={() => action("setInterviewer")(interviewer.id)}
+        id={interviewer.id}
+        name={interviewer.name}
+        avatar={interviewer.avatar}
+        setInterviewer={event => action("onChange")(interviewer.id)}
         />
       ));
 
@@ -132,14 +133,15 @@ storiesOf("Button", module)
       ))
       .add("Selected", () => (
         <InterviewerList
-          interviewers={interviewers}
-          interviewer={3}
+        interviewers={interviewers}
+        value={3}
+        setInterviewer={action("onChange")}
         />
       ))
       .add("Clickable", () => (
         <InterviewerList
-          interviewers={interviewers}
-          setInterviewer={action("setInterviewer")}
+        interviewers={interviewers}
+        setInterviewer={action("onChange")}
         />
       ));
       
@@ -159,15 +161,14 @@ storiesOf("Button", module)
   .add("Status", ()=> <Status message={"Deleting"}/>)
   .add("Error", ()=> <Error message={"Could not delete appointment."}/>)
   .add("Error", ()=> <Error onClose={action("onClose")}/>)
-  .add("Form", ()=> <Form student={""} interviewers={interviewers}
-  interviewer={3} onSave={action("onSave")}
+  .add("Edit", ()=> <Form  student={"Archie Cohen"}
+  interviewers={interviewers}
+  interviewer={interviewer.id}
+   onSave={action("onSave")}
   onCancel={action("onCancel")}/>)
-  // .add("Form", () => (
-  //   <InterviewerList
-  //     interviewers={interviewers}
-  //     interviewer={3}
-  //   />
-  // ))
+  .add("Create", ()=> <Form interviewers={interviewers}
+   onSave={action("onSave")}
+  onCancel={action("onCancel")}/>)
   // .add("Form", ()=> <Form onSave={action("onSave")}
   // onCancel={action("onCancel")}/>)
   ;
