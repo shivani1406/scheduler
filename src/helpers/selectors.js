@@ -1,4 +1,13 @@
-
+export const getInterview = function(state, interview) {
+  if (!interview) {
+    return null;
+  };
+  let interviewerID = interview.interviewer
+    return {
+      student: interview.student,
+      interviewer: state.interviewers[interviewerID]
+    };
+}
 
 export function getAppointmentsForDay(state, day) {
   if(!state.days){
