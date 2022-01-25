@@ -6,44 +6,7 @@ import DayList from "./DayList";
 import Appointment from "./Appointment";
 import {getInterviewersForDay, getAppointmentsForDay, getInterview } from "helpers/selectors";
 
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer:{
-//         id: 3,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 3,
-//     time: "2pm",
-//   },
-//   {
-//     id: 4,
-//     time: "3pm",
-//     interview: {
-//       student: "Archie Andrews",
-//       interviewer:{
-//         id: 4,
-//         name: "Cohana Roy",
-//         avatar: "https://i.imgur.com/FK8V841.jpg",
-//       }
-//     }
-//   },
-//   {
-//     id: 5,
-//     time: "4pm",
-//   }
-// ];
+
 export default function Application(props) {
   const [state, setState] = useState({
     day:"Monday",
@@ -69,6 +32,11 @@ export default function Application(props) {
       .catch((err) => console.log(err.message))
       );
   }
+  const cancelInterview = id => {
+
+    return axios.delete(`/api/appointments/${id}`).then(res => {
+    });
+  };
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 //   const appointmentlist = appointments.map((appointment) => {
@@ -77,6 +45,7 @@ export default function Application(props) {
 // });
 const listAppointments = dailyAppointments.map((appointment) => {
   const interview = getInterview(state, appointment.interview);
+  if(interview){
   return (
     <Appointment 
     key={appointment.id}
@@ -85,8 +54,20 @@ const listAppointments = dailyAppointments.map((appointment) => {
     interview={interview}  
     interviewers={interviewers}  
     bookInterview={bookInterview}
+    cancelInterview={cancelInterview}
     />
   )
+  } else{
+    return (
+      <Appointment 
+    key={appointment.id}
+    id={appointment.id}
+    time={appointment.time}
+    interview={null}  
+    interviewers={interviewers}  
+    bookInterview={bookInterview}
+    />
+    )}
 });
   
   
@@ -124,6 +105,7 @@ const setDay = day => setState({ ...state, day });
       setDay(day);
     }}
     bookInterview={bookInterview}
+    cancelInterview={cancelInterview}
 />
   </nav>
 <img
