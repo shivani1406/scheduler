@@ -51,13 +51,24 @@ export default function Application(props) {
     appointments: [],
     interviewers: []
   });
-  // const interviewers = [
-  //   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
-  //   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
-  //   { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-  //   { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-  //   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-  // ];
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    // console.log(id, interview);
+     //Make put request to update state locally and on server
+     return (axios.put(`/api/appointments/${id}`, appointment)
+     .then((res) => 
+      setState((prev) => ({...prev, appointments})) )
+      .catch((err) => console.log(err.message))
+      );
+  }
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 //   const appointmentlist = appointments.map((appointment) => {
@@ -73,6 +84,7 @@ const listAppointments = dailyAppointments.map((appointment) => {
     time={appointment.time}
     interview={interview}  
     interviewers={interviewers}  
+    bookInterview={bookInterview}
     />
   )
 });
@@ -111,6 +123,7 @@ const setDay = day => setState({ ...state, day });
     setDay={day => {
       setDay(day);
     }}
+    bookInterview={bookInterview}
 />
   </nav>
 <img
@@ -121,7 +134,7 @@ const setDay = day => setState({ ...state, day });
       </section>
       <section className="schedule">
       {listAppointments}
-     
+      
       </section>
     </main>
   );
