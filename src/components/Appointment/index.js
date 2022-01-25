@@ -20,11 +20,10 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
   const {mode, transition, back} = useVisualMode(props.interview == null ? EMPTY : SHOW);
    //Side effect that listens for changes in state
-   useEffect(() => {
-
-  
+   useEffect(() => {  
     if (props.interview && mode === EMPTY) {
      transition(SHOW);
     }
@@ -33,7 +32,7 @@ export default function Appointment(props) {
     }
    }, [props.interview, transition, mode]);
 
-   function save(name, interviewer) {
+function save(name, interviewer) {
     
     if (name && interviewer) {
       transition(SAVING);
@@ -48,13 +47,16 @@ export default function Appointment(props) {
         // .catch(() => transition(ERROR_SAVE, true))
     }
   }
-  const remove = () => {
+const edit = () => {
+    transition(EDIT);
+  };
+const remove = () => {
     if (mode === SHOW) {
       transition(CONFIRM);
     } else {
       transition(DELETING);
       props.cancelInterview(props.id).then(
-        () => transition(EMPTY),
+        () => window.location.reload(false),
         error => {
           console.log("Delete error:", error);
           // transition(ERROR_DELETE, true);
@@ -71,12 +73,13 @@ export default function Appointment(props) {
       // onEdit={props.onEdit} onDelete={props.onDelete}
       /> }
       {!props.interview && <Empty />} */}
-      {mode === EMPTY && <Empty onAdd={transition(CREATE)} />}
+      {mode === EMPTY && <Empty onAdd={transition} />}
 {mode === SHOW && (
   <Show
     student={props.interview.student}
     interviewer={props.interview.interviewer}
     onDelete={remove}
+    onEdit={edit}
   />
 )}
 {mode === CREATE && (<Form interviewers={props.interviewers}  onSave={save}
@@ -88,6 +91,16 @@ export default function Appointment(props) {
           message="Are you sure you want to cancel this appointment"
           onCancel={back}
           onConfirm={remove}
+        />
+      )}
+
+{mode === EDIT && (
+        <Form
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onCancel={back}
+          onSave={save}
+          interviewers={props.interviewers}
         />
       )}
       </article>
