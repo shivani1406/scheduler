@@ -7,6 +7,7 @@ import useVisualMode from "hooks/useVisualMode";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 export default function Appointment(props) {
   // const appointments = () => {
@@ -21,6 +22,9 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
+
   const {mode, transition, back} = useVisualMode(props.interview == null ? EMPTY : SHOW);
    //Side effect that listens for changes in state
    useEffect(() => {  
@@ -33,8 +37,9 @@ export default function Appointment(props) {
    }, [props.interview, transition, mode]);
 
 function save(name, interviewer) {
-    
-    if (name && interviewer) {
+  if (!interviewer || !props.id) {
+    transition(ERROR_SAVE, true);
+  } else if (name && interviewer) {
       transition(SAVING);
 
       const interview = {
@@ -42,24 +47,37 @@ function save(name, interviewer) {
         interviewer
       };
 
-      props.bookInterview(props.id, interview)
-        .then(() => transition(SHOW))
-        // .catch(() => transition(ERROR_SAVE, true))
+      // props.bookInterview(props.id, interview)
+      //   .then(() => transition(SHOW))
+      //   .catch(() => transition(ERROR_SAVE, true))
+      props.bookInterview(props.id, interview).then(
+        () => { 
+          transition(SHOW)
+        },
+        error => {
+          console.log("Saving error:", error);
+          transition(ERROR_SAVE, true);
+        }
+      );
     }
   }
 const edit = () => {
     transition(EDIT);
+  };
+  const errorClose = () => {
+    back();
   };
 const remove = () => {
     if (mode === SHOW) {
       transition(CONFIRM);
     } else {
       transition(DELETING);
-      props.cancelInterview(props.id).then(
+      props.cancelInterview(props.id)
+      .then(
         () => window.location.reload(false),
         error => {
           console.log("Delete error:", error);
-          // transition(ERROR_DELETE, true);
+           transition(ERROR_DELETE, true);
         }
       );
     }
@@ -102,6 +120,13 @@ const remove = () => {
           onSave={save}
           interviewers={props.interviewers}
         />
+      )}
+
+{mode === ERROR_SAVE && (
+        <Error message="You must selected an interviewer" onClose={errorClose} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message="Could not delete appointment" onClose={errorClose} />
       )}
       </article>
   );
