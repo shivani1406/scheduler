@@ -8,9 +8,18 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
   
   const [newstudent, setStudent] = useState(student || "");
   const [newinterviewer, setInterviewer] = useState(interviewer || null);
+  const [error, setError] = useState("");
+
 
   function validate() {
-    onSave(newstudent, newinterviewer.id);
+    if (newstudent === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+    if(newstudent && newinterviewer.id) {
+      onSave(newstudent, newinterviewer.id);
+    }
+    
   }
 
   return (
@@ -23,8 +32,10 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
         type="text"
         placeholder="Enter Student Name"
        value={student}  onChange={(event) => setStudent(event.target.value)}
+       data-testid="student-name-input"
       />
     </form>
+    <section className="appointment__validation">{error}</section>
     {newinterviewer ? <InterviewerList
             interviewers={interviewers}
             value={newinterviewer.id}
