@@ -47,9 +47,6 @@ function save(name, interviewer) {
         interviewer
       };
 
-      // props.bookInterview(props.id, interview)
-      //   .then(() => transition(SHOW))
-      //   .catch(() => transition(ERROR_SAVE, true))
       props.bookInterview(props.id, interview).then(
         () => { 
           transition(SHOW)
@@ -87,10 +84,6 @@ const remove = () => {
     <article className="appointment"> 
     <Header time={props.time}>
       </Header>
-      {/* {props.interview && <Show student={props.interview.student} interviewer={props.interview.interviewer} 
-      // onEdit={props.onEdit} onDelete={props.onDelete}
-      /> }
-      {!props.interview && <Empty />} */}
       {mode === EMPTY && <Empty onAdd={transition} />}
 {mode === SHOW && (
   <Show

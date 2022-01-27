@@ -10,29 +10,45 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
   const [newinterviewer, setInterviewer] = useState(interviewer || null);
   const [error, setError] = useState("");
 
+  const reset = function() {
+    setStudent("");
+    setInterviewer(null);
+  };
+
+  /**
+   * Resets form and cancels
+   */
+  const cancel = function() {
+    reset();
+    onCancel();
+  };
 
   function validate() {
     if (newstudent === "") {
-      setError("Student name cannot be blank");
+      setError("student name cannot be blank");
       return;
     }
-    if(newstudent && newinterviewer.id) {
-      onSave(newstudent, newinterviewer.id);
-    }
+    setError("");
+    onSave(newstudent, newinterviewer.id);
+    // if(newstudent && newinterviewer.id) {
+    //   onSave(newstudent, newinterviewer.id);
+    // }
     
   }
 
   return (
     <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
-    <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+    <form autoComplete="off" >
       <input
         className="appointment__create-input text--semi-bold"
         name="name"
         type="text"
         placeholder="Enter Student Name"
-       value={student}  onChange={(event) => setStudent(event.target.value)}
+       value={student}  
+       onChange={(event) => setStudent(event.target.value)}
        data-testid="student-name-input"
+      
       />
     </form>
     <section className="appointment__validation">{error}</section>
@@ -56,7 +72,7 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
   <section className="appointment__card-right">
     
     <section className="appointment__actions">
-      <Button danger onClick={onCancel}>Cancel</Button>
+      <Button danger onClick={event => cancel()}>Cancel</Button>
       <Button confirm onClick={event => validate()}>Save</Button>
     </section>
   </section>
