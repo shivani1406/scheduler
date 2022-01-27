@@ -22,6 +22,6 @@ npm test
 npm run storybook
 ```
 ## Screenshots
-!["Initial Page"](/screenshots/Screenshot from 2022-01-27 09-42-52.png)
-!["Adding a new slot"](/screenshots/Screenshot from 2022-01-27 09-43-06.png)
-!["Saving"](/screenshots/Screenshot from 2022-01-27 09-43-09.png)
+!["Initial Page"](/screenshots/Screenshot%20from%202022-01-27%2009-42-52.png)
+!["Adding a new slot"](/screenshots/Screenshot%20from%202022-01-27%2009-43-06.png)
+!["Saving"](/screenshots/Screenshot%20from%202022-01-27%2009-43-09.png)
