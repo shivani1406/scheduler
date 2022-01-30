@@ -29,7 +29,8 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
       return;
     }
     setError("");
-    onSave(newstudent, newinterviewer.id);
+    // onSave(newstudent, newinterviewer.id);
+    onSave(newstudent, newinterviewer);
     // if(newstudent && newinterviewer.id) {
     //   onSave(newstudent, newinterviewer.id);
     // }

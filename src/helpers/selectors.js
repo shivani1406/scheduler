@@ -24,6 +24,7 @@ export function getAppointmentsForDay(state, day) {
   }
 
   return result;
+  
 }
 
 const matchIds = (appointments, ids) => {

@@ -10,11 +10,7 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 
 export default function Appointment(props) {
-  // const appointments = () => {
-  //   if (props.time) {
-  //     return (<>Appointment at {props.time}</>);
-  //   } else { return(<>No Appointments</>);}
-  // };
+  
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -37,34 +33,20 @@ export default function Appointment(props) {
    }, [mode, transition, props.interview]);
 
 function save(name, interviewer) {
-  // if (!interviewer || !props.id) {
-  //   transition(ERROR_SAVE, true);
-  // } else if (name && interviewer) {
-  //     transition(SAVING);
-
-  //     const interview = {
-  //       student: name,
-  //       interviewer
-  //     };
+  debugger
+  if (!interviewer) {
+    transition(ERROR_SAVE, true);
+  } 
   if (name && interviewer) {
     transition(SAVING);
 
     const interview = {
       student: name,
-      interviewer
+      interviewer: interviewer.id
     };
       props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true))
-      // props.bookInterview(props.id, interview).then(
-      //   () => { 
-      //     transition(SHOW)
-      //   },
-      //   error => {
-      //     console.log("Saving error:", error);
-      //     transition(ERROR_SAVE, true);
-      //   }
-      // );
     }
   }
 const edit = () => {
@@ -82,19 +64,6 @@ const remove = () => {
   } else {
     transition(CONFIRM);      
   }
-    // if (mode === SHOW) {
-    //   transition(CONFIRM);
-    // } else {
-    //   transition(DELETING);
-    //   props.cancelInterview(props.id)
-    //   .then(
-    //     () => window.location.reload(false),
-    //     error => {
-    //       console.log("Delete error:", error);
-    //        transition(ERROR_DELETE, true);
-    //     }
-    //   );
-    // }
   };
 
   return (
