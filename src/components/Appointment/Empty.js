@@ -1,5 +1,7 @@
 import React from "react";
 import "components/Appointment/styles.scss"
+
+
 export default function(props)  {
   const CREATE = "CREATE";
   return (

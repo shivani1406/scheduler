@@ -3,7 +3,8 @@ import "components/Appointment/styles.scss"
 export default function({student, interviewer, onEdit, onDelete}=this.props)  {
   
   return (
-    <main className="appointment__card appointment__card--show">
+    
+  <main className="appointment__card appointment__card--show">
     <section className="appointment__card-left">
       <h2 className="text--regular">{student}</h2>
       <section className="interviewer">
@@ -11,6 +12,7 @@ export default function({student, interviewer, onEdit, onDelete}=this.props)  {
         <h3 className="text--regular">{interviewer.name}</h3>
       </section>
     </section>
+    
     <section className="appointment__card-right">
       <section className="appointment__actions">
         <img
@@ -27,6 +29,7 @@ export default function({student, interviewer, onEdit, onDelete}=this.props)  {
         />
       </section>
     </section>
+
   </main>
   );
 }

@@ -14,8 +14,8 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
  
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const interviewers = getInterviewersForDay(state, state.day);
+const dailyAppointments = getAppointmentsForDay(state, state.day);
+const interviewers = getInterviewersForDay(state, state.day);
 
 const listAppointments = dailyAppointments.map((appointment) => {
   const interview = getInterview(state, appointment.interview);
@@ -44,11 +44,10 @@ const listAppointments = dailyAppointments.map((appointment) => {
     )}
 });
   
-
-  return (
-    <main className="layout">
-      <section className="sidebar">
-      <img
+return (
+<main className="layout">
+  <section className="sidebar">
+  <img
   className="sidebar--centered"
   src="images/logo.png"
   alt="Interview Scheduler"
@@ -66,18 +65,21 @@ const listAppointments = dailyAppointments.map((appointment) => {
     bookInterview={bookInterview}
     cancelInterview={cancelInterview}
 />
-  </nav>
+</nav>
 <img
   className="sidebar__lhl sidebar--centered"
   src="images/lhl.png"
   alt="Lighthouse Labs"
 />
-      </section>
-      <section className="schedule">
-      {listAppointments}
-      <Appointment key="last" time="5pm" bookInterview={bookInterview}
-    cancelInterview={cancelInterview}/>
-      </section>
-    </main>
+</section>
+<section className="schedule">
+{listAppointments}
+<Appointment 
+key="last" 
+time="5pm" 
+bookInterview={bookInterview}
+cancelInterview={cancelInterview}/>
+</section>
+</main>
   );
 }

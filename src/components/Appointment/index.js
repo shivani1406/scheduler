@@ -23,7 +23,7 @@ export default function Appointment(props) {
 
   const {mode, transition, back} = useVisualMode(props.interview == null ? EMPTY : SHOW);
    //Side effect that listens for changes in state
-   useEffect(() => {  
+useEffect(() => {  
     if (props.interview && mode === EMPTY) {
      transition(SHOW);
     }
@@ -32,8 +32,9 @@ export default function Appointment(props) {
     }
    }, [mode, transition, props.interview]);
 
+/* Called when user press save button */
 function save(name, interviewer) {
-  debugger
+  // debugger
   if (!interviewer) {
     transition(ERROR_SAVE, true);
   } 
@@ -49,12 +50,17 @@ function save(name, interviewer) {
       .catch(() => transition(ERROR_SAVE, true))
     }
   }
+
+/* Called when edit icon is pressed */
 const edit = () => {
     transition(EDIT);
   };
-  const errorClose = () => {
+
+const errorClose = () => {
     back();
   };
+
+/* Called when deleting appointment */
 const remove = () => {
   if (mode === CONFIRM) {
     transition(DELETING, true)
@@ -66,21 +72,25 @@ const remove = () => {
   }
   };
 
-  return (
-    <article className="appointment"> 
-    <Header time={props.time}>
-      </Header>
-      {mode === EMPTY && <Empty onAdd={transition} />}
+return (
+<article className="appointment"> 
+<Header time={props.time}>
+</Header>
+{mode === EMPTY && <Empty onAdd={transition} />}
 {mode === SHOW && (
-  <Show
-    student={props.interview.student}
-    interviewer={props.interview.interviewer}
-    onDelete={remove}
-    onEdit={edit}
-  />
+    <Show
+      student={props.interview.student}
+      interviewer={props.interview.interviewer}
+      onDelete={remove}
+      onEdit={edit}
+    />  
 )}
-{mode === CREATE && (<Form name={props.name} value={props.value} interviewers={props.interviewers}  onSave={save}
-          onCancel={back}/>)}
+{mode === CREATE && 
+    (<Form name={props.name} 
+      value={props.value} 
+      interviewers={props.interviewers}  
+      onSave={save}
+      onCancel={back}/>)}
            {mode === SAVING && <Status message="Saving" />}
            {mode === DELETING && <Status message="Deleting" />}
            {mode === CONFIRM && (

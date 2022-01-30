@@ -15,9 +15,7 @@ export default function InterviewerList({interviewers, value, onChange}=this.pro
       />
     );
   });
- 
-  // const {interviewers, interviewer, setInterviewer} = props;
-  // console.log(props.interviewers);
+
   
 
   return(
@@ -25,15 +23,7 @@ export default function InterviewerList({interviewers, value, onChange}=this.pro
       <h4 className="interviewers__header text--light">Interviewer</h4>
       <ul className="interviewers__list"> 
       {ivs}
-      {/* {interviewers.map((iv) => 
-          <InterviewerListItem
-            key = {iv.id}
-            name = {iv.name}
-            avatar = {iv.avatar}
-            selected = {iv.id === interviewer}
-            setInterviewer = {event => {setInterviewer(iv.id)}}
-          />)} */}
-          </ul>
+      </ul>
     </section>
   );
 

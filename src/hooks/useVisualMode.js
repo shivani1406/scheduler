@@ -1,10 +1,11 @@
 import { useState } from "react";
+
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]); // This line is new!
+  const [history, setHistory] = useState([initial]); 
 
+  /** Transit and back function to move between one state to other */
   function transition(Newmode, replace = false) {
-    /* ... */
     
     if (replace) {
       setMode((prev) => Newmode)
@@ -18,6 +19,7 @@ export default function useVisualMode(initial) {
       setHistory((prev) => newHistory);
     }
   }
+
   function back() {  
     let newHistory = [...history];
     newHistory.pop(mode);

@@ -17,6 +17,7 @@ const useApplictionData = () => {
   
   const setDay = day => dispatch({ type: SET_DAY, day: day });
   
+  /* ***** Booking Interview function ********/
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, { interview }).then(r =>
       dispatch({
@@ -27,6 +28,7 @@ const useApplictionData = () => {
     );
   }
  
+  /* ***** Canceling Booking made  *****/
   function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`).then(r =>
       dispatch({
