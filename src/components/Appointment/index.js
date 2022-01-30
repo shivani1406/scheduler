@@ -34,28 +34,37 @@ export default function Appointment(props) {
     if (props.interview === null && mode === SHOW) {
      transition(EMPTY);
     }
-   }, [props.interview, transition, mode]);
+   }, [mode, transition, props.interview]);
 
 function save(name, interviewer) {
-  if (!interviewer || !props.id) {
-    transition(ERROR_SAVE, true);
-  } else if (name && interviewer) {
-      transition(SAVING);
+  // if (!interviewer || !props.id) {
+  //   transition(ERROR_SAVE, true);
+  // } else if (name && interviewer) {
+  //     transition(SAVING);
 
-      const interview = {
-        student: name,
-        interviewer
-      };
+  //     const interview = {
+  //       student: name,
+  //       interviewer
+  //     };
+  if (name && interviewer) {
+    transition(SAVING);
 
-      props.bookInterview(props.id, interview).then(
-        () => { 
-          transition(SHOW)
-        },
-        error => {
-          console.log("Saving error:", error);
-          transition(ERROR_SAVE, true);
-        }
-      );
+    const interview = {
+      student: name,
+      interviewer
+    };
+      props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true))
+      // props.bookInterview(props.id, interview).then(
+      //   () => { 
+      //     transition(SHOW)
+      //   },
+      //   error => {
+      //     console.log("Saving error:", error);
+      //     transition(ERROR_SAVE, true);
+      //   }
+      // );
     }
   }
 const edit = () => {
@@ -65,19 +74,27 @@ const edit = () => {
     back();
   };
 const remove = () => {
-    if (mode === SHOW) {
-      transition(CONFIRM);
-    } else {
-      transition(DELETING);
-      props.cancelInterview(props.id)
-      .then(
-        () => window.location.reload(false),
-        error => {
-          console.log("Delete error:", error);
-           transition(ERROR_DELETE, true);
-        }
-      );
-    }
+  if (mode === CONFIRM) {
+    transition(DELETING, true)
+    props.cancelInterview(props.id)
+    .then(() => transition(EMPTY))
+    .catch(() => transition(ERROR_DELETE, true))
+  } else {
+    transition(CONFIRM);      
+  }
+    // if (mode === SHOW) {
+    //   transition(CONFIRM);
+    // } else {
+    //   transition(DELETING);
+    //   props.cancelInterview(props.id)
+    //   .then(
+    //     () => window.location.reload(false),
+    //     error => {
+    //       console.log("Delete error:", error);
+    //        transition(ERROR_DELETE, true);
+    //     }
+    //   );
+    // }
   };
 
   return (
@@ -118,7 +135,7 @@ const remove = () => {
       )}
 
 {mode === ERROR_SAVE && (
-        <Error message="You must selected an interviewer" onClose={errorClose} />
+        <Error   message="Could not create appointment" onClose={errorClose} />
       )}
       {mode === ERROR_DELETE && (
         <Error message="Could not delete appointment" onClose={errorClose} />

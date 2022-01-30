@@ -75,7 +75,8 @@ const listAppointments = dailyAppointments.map((appointment) => {
       </section>
       <section className="schedule">
       {listAppointments}
-      <Appointment key="last" time="5pm"/>
+      <Appointment key="last" time="5pm" bookInterview={bookInterview}
+    cancelInterview={cancelInterview}/>
       </section>
     </main>
   );
