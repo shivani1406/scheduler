@@ -39,13 +39,13 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
   return (
     <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
-    <form autoComplete="off" >
+    <form autoComplete="off" onSubmit={event => event.preventDefault()}>
       <input
         className="appointment__create-input text--semi-bold"
-        name="name"
+        name={student}
         type="text"
         placeholder="Enter Student Name"
-       value={student}  
+       value={newstudent}  
        onChange={(event) => setStudent(event.target.value)}
        data-testid="student-name-input"
       
@@ -55,13 +55,13 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
     {newinterviewer ? <InterviewerList
             interviewers={interviewers}
             value={newinterviewer.id}
-            onChange={setInterviewer}
+            onChange={(event) => setInterviewer(event)}
           />
           :
           <InterviewerList
             interviewers={interviewers}
             value={newinterviewer}
-            onChange={setInterviewer}
+            onChange={(event) => setInterviewer(event)}
           />
           }
    
@@ -73,7 +73,7 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
     
     <section className="appointment__actions">
       <Button danger onClick={event => cancel()}>Cancel</Button>
-      <Button confirm onClick={event => validate()}>Save</Button>
+      <Button confirm onSubmit={event => event.preventDefault()} onClick={event => validate()}>Save</Button>
     </section>
   </section>
 </main>
