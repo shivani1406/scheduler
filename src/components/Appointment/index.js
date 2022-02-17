@@ -27,7 +27,7 @@ useEffect(() => {
     if (props.interview && mode === EMPTY) {
      transition(SHOW);
     }
-    if (!props.interview && mode === SHOW) {
+    if (props.interview === null && mode === SHOW) {
      transition(EMPTY);
     }
    }, [mode, transition, props.interview]);
