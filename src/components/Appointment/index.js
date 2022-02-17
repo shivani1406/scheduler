@@ -27,7 +27,7 @@ useEffect(() => {
     if (props.interview && mode === EMPTY) {
      transition(SHOW);
     }
-    if (props.interview === null && mode === SHOW) {
+    if (!props.interview && mode === SHOW) {
      transition(EMPTY);
     }
    }, [mode, transition, props.interview]);
@@ -114,7 +114,7 @@ return (
       )}
 
 {mode === ERROR_SAVE && (
-        <Error   message="Could not create appointment" onClose={errorClose} />
+        <Error   message="Could not create appointment, Please select an Interviewer" onClose={errorClose} />
       )}
       {mode === ERROR_DELETE && (
         <Error message="Could not delete appointment" onClose={errorClose} />
