@@ -1,4 +1,4 @@
-// import React from "react";
+
 import React from "react";
 import "components/Application.scss";
 import DayList from "./DayList";

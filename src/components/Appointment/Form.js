@@ -30,6 +30,10 @@ export default function({ student, interviewer, onCancel, onSave, interviewers }
       setError("student name cannot be blank");
       return;
     }
+    if (!newinterviewer) {
+      setError('Please select an interviewer');
+      return;
+    }
     setError("");
     onSave(newstudent, newinterviewer);
     
