@@ -56,9 +56,7 @@ const edit = () => {
     transition(EDIT);
   };
 
-const errorClose = () => {
-    back();
-  };
+
 
 /* Called when deleting appointment */
 const remove = () => {
@@ -114,10 +112,10 @@ return (
       )}
 
 {mode === ERROR_SAVE && (
-        <Error   message="Could not create appointment, Please select an Interviewer" onClose={errorClose} />
+        <Error   message="Could not create appointment, Please select an Interviewer" onClose={back} />
       )}
       {mode === ERROR_DELETE && (
-        <Error message="Could not delete appointment" onClose={errorClose} />
+        <Error message="Could not delete appointment" onClose={back} />
       )}
       </article>
   );
