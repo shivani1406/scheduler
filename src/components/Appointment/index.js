@@ -112,7 +112,7 @@ return (
       )}
 
 {mode === ERROR_SAVE && (
-        <Error   message="Could not create appointment, Please select an Interviewer" onClose={back} />
+        <Error   message="Could not create appointment" onClose={back} />
       )}
       {mode === ERROR_DELETE && (
         <Error message="Could not delete appointment" onClose={back} />
