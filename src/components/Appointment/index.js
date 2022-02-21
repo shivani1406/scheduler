@@ -27,7 +27,7 @@ useEffect(() => {
     if (props.interview && mode === EMPTY) {
      transition(SHOW);
     }
-    if (!props.interview && mode === SHOW) {
+    if (props.interview === null && mode === SHOW) {
      transition(EMPTY);
     }
    }, [mode, transition, props.interview]);
@@ -35,9 +35,9 @@ useEffect(() => {
 /* Called when user press save button */
 function save(name, interviewer) {
   // debugger
-  if (!interviewer) {
-    transition(ERROR_SAVE, true);
-  } 
+  // if (!interviewer) {
+  //   transition(ERROR_SAVE, true);
+  // } 
   if (name && interviewer) {
     transition(SAVING);
 
@@ -74,7 +74,7 @@ return (
 <article className="appointment"> 
 <Header time={props.time}>
 </Header>
-{mode === EMPTY && <Empty onAdd={transition} />}
+{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 {mode === SHOW && (
     <Show
       student={props.interview.student}
