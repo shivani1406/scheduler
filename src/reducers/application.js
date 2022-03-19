@@ -13,6 +13,49 @@ function getSpotsForDay(state, day) {
 
 export default function reducer(state, action) {
   switch (action.type) {
+
+    case "updateInterview":
+
+      let currentDay = state.days.find(
+        day => day.appointments.includes(action.id)
+      );
+
+      //Updates the spots information for that day and correct appointment information for a new interview and ready's for rendering
+      if(action.interview){
+        currentDay.spots -= 1;
+        const appointment = {
+          ...state.appointments[action.id],
+          interview: { ...action.interview }
+        };
+        
+        const appointments = {
+          ...state.appointments,
+          [ action.id]: appointment
+        };
+        let newDaysArr = [...state.days];
+        newDaysArr[currentDay.id -1] = currentDay;
+        return { ...state, appointments: appointments, days: newDaysArr };
+      }
+
+      //Updates spots information for that day and correct appoointment information for a null interview and ready's for rendering
+      else{
+        currentDay.spots += 1;
+        const appointment = {
+          ...state.appointments[action.id],
+          interview: null
+        };
+        
+        const appointments = {
+          ...state.appointments,
+          [ action.id]: appointment
+        };
+
+        let newDaysArr = [...state.days];
+        newDaysArr[currentDay.id -1] = currentDay;
+
+        return { ...state, appointments: appointments, days: newDaysArr };
+      }
+
     case SET_DAY:
       return {
         ...state,
